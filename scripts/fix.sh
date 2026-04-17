@@ -9,7 +9,6 @@ INSTALL_DIR="@@INSTALL_DIR@@"
 NOTIFY="@@NOTIFY@@"
 LOG_MAX_LINES="@@LOG_MAX_LINES@@"
 POLL_INTERVAL="@@POLL_INTERVAL@@"
-POST_RESTORE_WAIT="@@POST_RESTORE_WAIT@@"
 
 GAME_SUBPATH="common/Gray Zone Warfare/GZW/Content/SKALLA/PrebuildWorldData/World/cache"
 MANIFEST_NAME="appmanifest_${STEAM_APP_ID}.acf"
@@ -21,8 +20,6 @@ EAC_FILES=(
 
 LOG_FILE="$INSTALL_DIR/${SERVICE_NAME}.log"
 STATE_FILE="$INSTALL_DIR/.last_known_state"
-
-# ─── logging ──────────────────────────────────────────────────────────────────
 
 BLUE='\033[0;34m'
 RED='\033[0;31m'
@@ -72,8 +69,6 @@ _notify() {
     notify-send -a "$SERVICE_NAME" "$1" "$2" 2>/dev/null || true
 }
 
-# ─── auto-detect steam library ────────────────────────────────────────────────
-
 find_steam_library() {
     local bases=(
         "$HOME/.local/share/Steam"
@@ -113,11 +108,10 @@ MANIFEST="$STEAM_APPS/$MANIFEST_NAME"
 
 log_info "GZW found at: $CACHE_DIR"
 
-# ─── build state detection ────────────────────────────────────────────────────
-#
+# Build State Detection:
 # Fingerprint = buildid + all InstalledDepots manifest IDs (sorted).
 # Depot manifests rotate on every content update even if the buildid doesn't.
-# If fingerprint matches last run, skip the fix — nothing was actually updated.
+# If fingerprint matches last run, skip the fix - nothing was actually updated.
 
 read_game_state() {
     local acf="$1"
@@ -153,10 +147,10 @@ if [[ -n "$LAST_STATE" ]]; then
     log_info "  Previous: $LAST_STATE"
     log_info "  Current:  $CURRENT_STATE"
 else
-    log_info "No previous state — running fix and recording baseline."
+    log_info "No previous state - running fix and recording baseline."
 fi
 
-# ─── fix ──────────────────────────────────────────────────────────────────────
+# applying fix (remove -> regenerate -> lock)
 
 _notify -i dialog-information "Applying EAC cache fix..."
 
@@ -182,8 +176,6 @@ done
 
 log_info "Flushing disk after restore..."
 sync
-
-sleep "$POST_RESTORE_WAIT"
 
 log_info "Setting files read-only..."
 for f in "${EAC_FILES[@]}"; do

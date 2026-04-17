@@ -12,7 +12,6 @@ INSTALL_DIR="$HOME/.local/share/gzw-eac-fix"
 NOTIFY="false"          # set to true to enable desktop notifications via notify-send
 LOG_MAX_LINES="200"     # max lines kept in the log file
 POLL_INTERVAL="3"       # seconds between file-exists checks after steam validate
-POST_RESTORE_WAIT="2"   # seconds to wait after files reappear before chmod
 
 BLUE='\033[0;34m'
 RED='\033[0;31m'
@@ -119,7 +118,6 @@ substitute() {
         -e "s|@@NOTIFY@@|${NOTIFY}|g"                     \
         -e "s|@@LOG_MAX_LINES@@|${LOG_MAX_LINES}|g"       \
         -e "s|@@POLL_INTERVAL@@|${POLL_INTERVAL}|g"       \
-        -e "s|@@POST_RESTORE_WAIT@@|${POST_RESTORE_WAIT}|g" \
         "$src" > "$dst"
 }
 

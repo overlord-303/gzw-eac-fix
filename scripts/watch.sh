@@ -7,7 +7,6 @@ SERVICE_NAME="@@SERVICE_NAME@@"
 INSTALL_DIR="@@INSTALL_DIR@@"
 MANIFEST_PATH="@@MANIFEST_PATH@@"
 
-
 LOG_FILE="$INSTALL_DIR/${SERVICE_NAME}.log"
 FIX_SCRIPT="$INSTALL_DIR/fix.sh"
 
@@ -47,6 +46,6 @@ log_info "Watching: $MANIFEST_PATH"
 
 inotifywait -m -e close_write "$MANIFEST_PATH" 2>/dev/null \
     | while read -r _dir _event _file; do
-        log_info "Manifest changed — invoking fix..."
+        log_info "Manifest changed - invoking fix..."
         bash "$FIX_SCRIPT"
     done
