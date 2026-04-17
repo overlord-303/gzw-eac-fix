@@ -1,0 +1,8 @@
+[Unit]
+Description=Watch for Gray Zone Warfare updates
+
+[Path]
+PathChanged=@@MANIFEST_PATH@@
+
+[Install]
+WantedBy=default.target

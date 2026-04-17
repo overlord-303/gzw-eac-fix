@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=GZW EAC Fix Watcher
+Comment=Watches for Gray Zone Warfare updates and applies EAC cache fix
+Exec=@@INSTALL_DIR@@/watch.sh
+Terminal=false
+X-GNOME-Autostart-enabled=true

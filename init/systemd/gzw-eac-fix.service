@@ -1,0 +1,10 @@
+[Unit]
+Description=GZW EAC fix - post-update cache patch
+
+[Service]
+Type=oneshot
+ExecStart=@@INSTALL_DIR@@/fix.sh
+Environment=DISPLAY=:0
+PassEnvironment=DBUS_SESSION_BUS_ADDRESS XDG_RUNTIME_DIR
+StandardOutput=journal
+StandardError=journal

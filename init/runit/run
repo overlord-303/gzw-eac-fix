@@ -1,0 +1,2 @@
+#!/bin/sh
+exec @@INSTALL_DIR@@/watch.sh
